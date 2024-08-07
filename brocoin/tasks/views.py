@@ -1,10 +1,11 @@
 from django.db import connection
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-import json
+
 
 @csrf_exempt
 def get_tasks(request):
+    """Получение данных по таскам"""
     cursor = connection.cursor()
     username = request.POST.get('username')
     cursor.execute(f"SELECT * FROM tasks")
@@ -31,3 +32,14 @@ def get_tasks(request):
     else:
         return JsonResponse({'error': 'task not exist'}, safe=False)
 
+
+@csrf_exempt
+def done_tasks(request):
+    """Выполнение таски"""
+    cursor = connection.cursor()
+    username = request.POST.get('username')
+    task_id = request.POST.get('task_id')
+    cursor.execute(f"SELECT sid from users where username = '{username}'")
+    user_sid = cursor.fetchall()
+    cursor.execute(f"INSERT INTO public.user_tasks (user_id, task_id) VALUES ('{user_sid[0][0]}', '{int(task_id)}')")
+    return JsonResponse({'tasks_done': 'complete'})

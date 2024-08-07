@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'mining.apps.MiningConfig',
     'tasks.apps.TasksConfig',
-    'taps.apps.TapsConfig',
     'users.apps.UsersConfig',
 
 ]
