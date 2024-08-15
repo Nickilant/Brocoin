@@ -40,11 +40,11 @@ settings.py, на 75 строке найти настройки базы дан�
    
     "referals" - json,
    
-    "ref_code": string,
+    "ref_code" - string,
    
-    "position": int,
+    "position" - int,
    
-    "tickets": int
+    "tickets" - int
    
     Пример:
    
@@ -62,4 +62,41 @@ settings.py, на 75 строке найти настройки базы дан�
     "ref_code": "624161982",
     "position": 1,
     "tickets": 0
-}
+    }
+2) get/tasks - Ответ представляет собой массив содержащий json-ы со следующими полями:
+
+   "id" - int,
+   
+   "description" - string,
+   
+   "points" - int,
+   
+   "links" - string,
+   
+   "complete" - bool
+
+   Пример: 
+
+    [
+    {
+        "id": 1,
+        "description": "Бро готовят задания",
+        "points": 1000,
+        "links": "https://t.me/itsbrocoin",
+        "complete": true
+    },
+    {
+        "id": 2,
+        "description": "Второе задание",
+        "points": 5000,
+        "links": "https://t.me/itsbrocoin",
+        "complete": true
+    },
+    {
+        "id": 3,
+        "description": "Subscribe my Channel",
+        "points": 1000,
+        "links": "https://youtube.com",
+        "complete": false
+    }
+]
