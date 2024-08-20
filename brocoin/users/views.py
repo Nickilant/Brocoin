@@ -13,6 +13,7 @@ def get_user(request):
     username = request.POST.get('username')
     user_id = request.POST.get('user_id')
     ref_code = request.POST.get('ref_code')
+    premium = request.POST.get('premium')
     #TODO От фронта надо получать поля username, user_id, ref_code
     cursor.execute(f"SELECT * FROM users where username = '{username}'")
     user = cursor.fetchall()
@@ -33,21 +34,29 @@ def get_user(request):
         cursor.execute(
             f"SELECT username, score, rank FROM (SELECT username, score, RANK() OVER (ORDER BY score DESC) AS rank FROM public.users) AS ranked_users WHERE username = '{username}'")
         rank = cursor.fetchall()
-        score_up = 0
-        for i in user[0][4]['id']:
-            cursor.execute(f"SELECT * FROM public.referals_score where username = '{i}'")
-            ref_score = cursor.fetchall()
-            cursor.execute(f"UPDATE public.referals_score set score=0 where username = '{i}'")
-            score_up += int(ref_score[0][1])
-        cursor.execute(
-            f"UPDATE public.users SET score = '{int(user[0][2]) + int((score_up / 10))}' where username = '{user[0][1]}'")
         cursor.execute(f"SELECT * FROM users where username = '{username}'")
         user = cursor.fetchall()
+        answer_ref = []
+        for i in user[0][4]['id']:
+            cursor.execute(f"SELECT * FROM users where ref_code = '{i}'")
+            ref = cursor.fetchall()
+            bonus = 0
+            if ref[0][5]:
+                bonus = '5000'
+            referal = {
+                'username': ref[0][1],
+                'refs': len(ref[0][4]['id']),
+                'bonus': bonus
+            }
+            answer_ref.append(referal)
+
+
+
         answer = {
             'username': user[0][1],
             'score': user[0][2],
-            'last_tap': str(user[0][3]),
-            'referals': user[0][4],
+            'start_mining': str(user[0][3]),
+            'referals': answer_ref,
             'ref_code': user[0][6],
             'position': rank[0][2],
             'tickets': user[0][11],
@@ -56,6 +65,27 @@ def get_user(request):
         return JsonResponse(answer)
     else:
         return JsonResponse({'error': 'user not exist'})
+
+
+@csrf_exempt
+def get_ref_claim(request):
+    """Сбор монет с рефералов"""
+    try:
+        cursor = connection.cursor()
+        username = request.POST.get('username')
+        cursor.execute(f"SELECT * FROM users where username = '{username}'")
+        user = cursor.fetchall()
+        score_up = 0
+        for i in user[0][4]['id']:
+            cursor.execute(f"SELECT * FROM public.referals_score where username = '{i}'")
+            ref_score = cursor.fetchall()
+            cursor.execute(f"UPDATE public.referals_score set score=0 where username = '{i}'")
+            score_up += int(ref_score[0][1])
+        cursor.execute(
+            f"UPDATE public.users SET score = '{int(user[0][2]) + int((score_up / 10))}' where username = '{user[0][1]}'")
+        return JsonResponse({'Claim': 'Complete'})
+    except Exception as e:
+        return JsonResponse({'Claim': f'Error: {e}'})
 
 
 @csrf_exempt
@@ -112,6 +142,13 @@ def remove_tickets(request):
     cursor.execute(f"UPDATE users set tickets = {summ_tickets} where username = '{username}'")
     return JsonResponse({'Remove': 'Complete'})
 
+@csrf_exempt
+def start_mining(request):
+    """Установка временной метки начала майнинга"""
+    username = request.POST.get('username')
+    cursor = connection.cursor()
+    cursor.execute(f"UPDATE users set last_tap='{datetime.now()}' where username='{username}'")
+    return JsonResponse({'Mining': 'Start'})
 
 
 

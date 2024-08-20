@@ -25,10 +25,12 @@ def get_tasks(request):
                 'id': task[0],
                 'description': task[1],
                 'points': task[2],
+                'tickets': task[5],
+                'duration': task[6],
                 'links': task[4],
                 'complete': complete_task
             })
-        return JsonResponse(answer, safe=False)
+        return JsonResponse({'tasks': answer}, safe=False)
     else:
         return JsonResponse({'error': 'task not exist'}, safe=False)
 
