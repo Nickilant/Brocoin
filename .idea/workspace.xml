@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ca43dd2-feaa-4c84-a65b-ff3006af996a" name="Changes" comment="" />
+    <list default="true" id="8ca43dd2-feaa-4c84-a65b-ff3006af996a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/brocoin/Brocoin.postman_collection.json" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
