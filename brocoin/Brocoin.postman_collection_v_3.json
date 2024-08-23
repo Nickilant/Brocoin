@@ -320,6 +320,40 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "/start/mining/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "antonprox",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/start/mining/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"start",
+						"mining",
+						""
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
