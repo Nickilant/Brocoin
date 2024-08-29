@@ -161,6 +161,24 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+brocoin/brocoin/__pycache__/__init__.cpython-312.pyc
+brocoin/brocoin/__pycache__/urls.cpython-312.pyc
+brocoin/brocoin/__pycache__/wsgi.cpython-312.pyc
+brocoin/mining/__pycache__/__init__.cpython-312.pyc
+brocoin/mining/__pycache__/apps.cpython-312.pyc
+brocoin/mining/__pycache__/models.cpython-312.pyc
+brocoin/mining/migrations/__pycache__/__init__.cpython-312.pyc
+brocoin/tasks/__pycache__/__init__.cpython-312.pyc
+brocoin/tasks/__pycache__/apps.cpython-312.pyc
+brocoin/tasks/__pycache__/models.cpython-312.pyc
+brocoin/tasks/migrations/__pycache__/__init__.cpython-312.pyc
+brocoin/users/__pycache__/__init__.cpython-312.pyc
+brocoin/users/__pycache__/apps.cpython-312.pyc
+brocoin/users/__pycache__/models.cpython-312.pyc
+brocoin/users/__pycache__/views.cpython-312.pyc
+brocoin/users/migrations/__pycache__/__init__.cpython-312.pyc
+users/__pycache__/views.cpython-312.pyc
+
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore

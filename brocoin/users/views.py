@@ -67,13 +67,16 @@ def get_user(request):
         for i in user[0][4]['id']:
             cursor.execute(f"SELECT * FROM users where ref_code = '{i}'")
             ref = cursor.fetchall()
+            cursor.execute(f"SELECT score FROM public.referals_score where username = '{i}'")
+            ref_score = cursor.fetchall()
             bonus = 0
             if ref[0][5]:
                 bonus = '5000'
             referal = {
                 'username': ref[0][1],
                 'refs': len(ref[0][4]['id']),
-                'bonus': bonus
+                'bonus': bonus,
+                'reward': int(int(ref_score[0][0])/10),
             }
             answer_ref.append(referal)
 
