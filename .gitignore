@@ -8,6 +8,7 @@ __pycache__/
 *$py.class
 *.pyc
 .idea/
+.lol
 
 # C extensions
 *.so
