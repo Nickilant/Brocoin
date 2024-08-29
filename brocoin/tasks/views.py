@@ -41,7 +41,19 @@ def done_tasks(request):
     cursor = connection.cursor()
     username = request.POST.get('username')
     task_id = request.POST.get('task_id')
-    cursor.execute(f"SELECT sid from users where username = '{username}'")
+    cursor.execute(f"SELECT sid, score, tickets from users where username = '{username}'")
     user_sid = cursor.fetchall()
+    score = user_sid[0][1]
+    tickets = user_sid[0][2]
     cursor.execute(f"INSERT INTO public.user_tasks (user_id, task_id) VALUES ('{user_sid[0][0]}', '{int(task_id)}')")
+    cursor.execute(f"SELECT points, tickets from tasks where id = {task_id}")
+    taska = cursor.fetchall()
+    taska_points = taska[0][0]
+    taska_tickets = taska[0][1]
+    itog_score = int(score) + int(taska_points)
+    try:
+        itog_tickets = int(tickets) + int(taska_tickets)
+    except Exception as e:
+        itog_tickets = int(tickets)
+    cursor.execute(f"UPDATE public.users set score = {itog_score}, tickets = {itog_tickets} where username = '{username}'")
     return JsonResponse({'tasks_done': 'complete'})
