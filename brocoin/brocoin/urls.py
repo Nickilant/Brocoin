@@ -5,6 +5,7 @@ from users.views import post_tickets
 from users.views import remove_score
 from users.views import remove_tickets
 from users.views import start_mining
+from users.views import done_mining
 from tasks.views import get_tasks
 from tasks.views import done_tasks
 from django.urls import path
@@ -20,4 +21,5 @@ urlpatterns = [
     path('remove/score/', remove_score),
     path('remove/tickets/', remove_tickets),
     path('start/mining/', start_mining),
+    path('done/mining/', done_mining),
 ]

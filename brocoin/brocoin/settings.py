@@ -80,11 +80,12 @@ DATABASES = {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'brocoin',
             'USER': 'postgres',
-            'PASSWORD': os.environ.get('DB_PASSWORD'),
+            'PASSWORD': "111",
             'HOST': '127.0.0.1',
             'PORT': '5432',
         }
 }
+#os.environ.get('DB_PASSWORD')
 
 
 # Password validation
