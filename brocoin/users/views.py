@@ -19,7 +19,7 @@ def get_user(request):
     user = cursor.fetchall()
     if not user:
         refs = json.dumps({'id': []})
-        cursor.execute(f"INSERT INTO public.users (sid,username,score,last_score,last_tap,ref_code,refs,energy,tickets) VALUES ('{uuid.uuid4()}','{username}',0,0,'{datetime.now()}','{user_id}',{repr(refs)},1000,0)")
+        cursor.execute(f"INSERT INTO public.users (sid,username,score,last_score,last_tap,ref_code,refs,energy,tickets) VALUES ('{uuid.uuid4()}','{username}',25,0,'{datetime.now()}','{user_id}',{repr(refs)},1000,10)")
         cursor.execute(f"INSERT INTO public.referals_score (username,score) VALUES ('{user_id}',0)")
         if ref_code:
             cursor.execute(f"SELECT refs FROM users WHERE ref_code='{ref_code}'")
