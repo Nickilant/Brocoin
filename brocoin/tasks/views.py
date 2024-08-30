@@ -29,7 +29,7 @@ def get_tasks(request):
                 'duration': task[6],
                 'links': task[4],
                 'complete': complete_task,
-                'description': task[6],
+                'description': task[7],
             })
         return JsonResponse({'tasks': answer}, safe=False)
     else:
