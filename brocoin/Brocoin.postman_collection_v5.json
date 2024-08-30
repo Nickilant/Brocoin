@@ -16,17 +16,22 @@
 					"formdata": [
 						{
 							"key": "username",
-							"value": "antonprox",
+							"value": "antonprox_ref12",
 							"type": "text"
 						},
 						{
 							"key": "user_id",
-							"value": "624161982",
+							"value": "624161982557",
 							"type": "text"
 						},
 						{
 							"key": "ref_code",
-							"value": "None",
+							"value": "624161982",
+							"type": "text"
+						},
+						{
+							"key": "premium",
+							"value": "True",
 							"type": "text"
 						}
 					]
