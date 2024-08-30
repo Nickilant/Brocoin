@@ -23,12 +23,13 @@ def get_tasks(request):
                 complete_task = False
             answer.append({
                 'id': task[0],
-                'description': task[1],
+                'title': task[1],
                 'points': task[2],
                 'tickets': task[5],
                 'duration': task[6],
                 'links': task[4],
-                'complete': complete_task
+                'complete': complete_task,
+                'description': task[6],
             })
         return JsonResponse({'tasks': answer}, safe=False)
     else:
