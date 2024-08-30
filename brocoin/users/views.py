@@ -90,7 +90,7 @@ def get_user(request):
             'username': user[0][1],
             'score': user[0][2],
             'left_mining': formatted_time if formatted_time > "0" else "00:00",
-            'mining_done': user[0][12],
+            'mining_claim': user[0][12],
             'referals': answer_ref,
             'ref_code': user[0][6],
             'position': rank[0][2],
