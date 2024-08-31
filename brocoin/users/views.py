@@ -135,7 +135,9 @@ def post_score(request):
     cursor.execute(f"UPDATE users set score = {summ_score} where username = '{username}'")
     cursor.execute(f"SELECT * FROM users where username = '{username}'")
     user = cursor.fetchall()
-    cursor.execute(f"UPDATE referals_score set score = {user_score} where username = '{user[0][6]}'")
+    cursor.execute(f"SELECT * FROM public.referals_score where username = '{user[0][6]}'")
+    referals_score = cursor.fetchall()
+    cursor.execute(f"UPDATE referals_score set score = {int(referals_score[0][1])+int(user_score)} where username = '{user[0][6]}'")
     return JsonResponse({'Added': 'Complete'})
 
 
