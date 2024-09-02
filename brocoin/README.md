@@ -49,28 +49,51 @@ get/user/ - Ответ приходит в формате json который с
 
 {
     "username": "antonprox",
-    "score": 2937,
-    "start_mining": "2024-08-20 11:47:51.000377",
+    "score": 31222,
+    "left_mining": "00:00",
+    "mining_claim": true,
     "referals": [
         {
             "username": "antonprox_ref",
             "refs": 0,
-            "bonus": "5000"
+            "bonus": "5000",
+            "reward": 1000
         },
         {
             "username": "antonprox_ref1",
             "refs": 0,
-            "bonus": 0
+            "bonus": 0,
+            "reward": 0
         },
         {
             "username": "antonprox_ref2",
             "refs": 0,
-            "bonus": 0
+            "bonus": 0,
+            "reward": 0
+        },
+        {
+            "username": "antonprox_ref10",
+            "refs": 0,
+            "bonus": 0,
+            "reward": 0
+        },
+        {
+            "username": "antonprox_ref11",
+            "refs": 0,
+            "bonus": 0,
+            "reward": 0
+        },
+        {
+            "username": "antonprox_ref12",
+            "refs": 0,
+            "bonus": 0,
+            "reward": 0
         }
     ],
     "ref_code": "624161982",
     "position": 1,
-    "tickets": 2
+    "tickets": 165,
+    "daily_stric": 1
 }
 
 
