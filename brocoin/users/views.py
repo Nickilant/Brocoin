@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 import uuid
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 
 @csrf_exempt
@@ -14,7 +14,7 @@ def get_user(request):
     user_id = request.POST.get('user_id')
     ref_code = request.POST.get('ref_code')
     premium = request.POST.get('premium')
-    #TODO От фронта надо получать поля username, user_id, ref_code
+
     cursor.execute(f"SELECT * FROM users where username = '{username}'")
     user = cursor.fetchall()
     if not user:
@@ -43,32 +43,41 @@ def get_user(request):
         cursor.execute(f"SELECT * FROM users where username = '{username}'")
         user = cursor.fetchall()
         #-------------Вычисление времени таймера
-
         db_time_str = str(user[0][3])
-
         # Преобразуем строку в объект datetime
         db_time = datetime.strptime(db_time_str, "%Y-%m-%d %H:%M:%S.%f")
-
         # Получаем текущее время
         current_time = datetime.now()
-
         # Вычисляем разницу между текущим временем и временем из базы данных
         time_diff = current_time - db_time
-
         # Время, соответствующее 8 часам
         eight_hours = timedelta(hours=8)
-
         # Вычитаем разницу из 8 часов
         remaining_time = eight_hours - time_diff
-
         # Преобразуем оставшееся время в часы и минуты
         remaining_hours, remainder = divmod(remaining_time.total_seconds(), 3600)
         remaining_minutes, _ = divmod(remainder, 60)
-
         # Форматируем результат в HH:MM
         formatted_time = f"{int(remaining_hours):02}:{int(remaining_minutes):02}"
-
         #-----------------------------------
+        # Проверяем дейлистрик-----------------------
+        date_time = str(user[0][13])
+        last_login = datetime.strptime(date_time, "%Y-%m-%d").date()
+        today = date.today()
+        yesterday = today - timedelta(days=1)
+        if last_login == today:
+            pass
+        else:
+            if last_login == yesterday:
+                reward_streak = int(user[0][14])+1
+                if reward_streak >= 7:
+                    reward_streak = 7
+                cursor.execute(
+                    f"UPDATE public.users set last_login='{today}', reward_streak = {reward_streak} where username='{user[0][1]}'")
+            else:
+                cursor.execute(
+                    f"UPDATE public.users set last_login='{today}', reward_streak = {1} where username='{user[0][1]}'")
+        # -------------------------------------------
         answer_ref = []
         for i in user[0][4]['id']:
             cursor.execute(f"SELECT * FROM users where ref_code = '{i}'")
@@ -85,7 +94,8 @@ def get_user(request):
                 'reward': int(int(ref_score[0][0])/10),
             }
             answer_ref.append(referal)
-
+        cursor.execute(f"SELECT * FROM users where username = '{username}'")
+        user = cursor.fetchall()
         answer = {
             'username': user[0][1],
             'score': user[0][2],
@@ -95,6 +105,7 @@ def get_user(request):
             'ref_code': user[0][6],
             'position': rank[0][2],
             'tickets': user[0][11],
+            'daily_stric': user[0][14],
 
         }
         return JsonResponse(answer)
