@@ -29,10 +29,10 @@ def get_user(request):
             actual_score = referals[0][2]
             actual_refs['id'].append(user_id)
             if not premium:
-                cursor.execute(f"UPDATE users set refs='{json.dumps(actual_refs)}', tickets = {int(actual_tickets) + 10} where ref_code='{ref_code}'")
+                cursor.execute(f"UPDATE users set refs='{json.dumps(actual_refs)}', tickets = {int(actual_tickets) + 5} where ref_code='{ref_code}'")
             else:
                 cursor.execute(
-                    f"UPDATE users set refs='{json.dumps(actual_refs)}', tickets = {int(actual_tickets) + 50}, score = {int(actual_score) + 50} where ref_code='{ref_code}'")
+                    f"UPDATE users set refs='{json.dumps(actual_refs)}', tickets = {int(actual_tickets) + 25}, score = {int(actual_score) + 50} where ref_code='{ref_code}'")
     cursor.execute(f"SELECT * FROM users where username = '{username}'")
     user = cursor.fetchall()
 
