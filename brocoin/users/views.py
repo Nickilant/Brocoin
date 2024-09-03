@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 import uuid
+import users.enums as dailyEnums
 from datetime import datetime, timedelta, date
 
 
@@ -14,7 +15,6 @@ def get_user(request):
     user_id = request.POST.get('user_id')
     ref_code = request.POST.get('ref_code')
     premium = request.POST.get('premium')
-
     cursor.execute(f"SELECT * FROM users where username = '{username}'")
     user = cursor.fetchall()
     if not user:
@@ -70,30 +70,14 @@ def get_user(request):
         else:
             if last_login == yesterday:
                 reward_streak = int(user[0][14])+1
-                if reward_streak >= 7:
-                    reward_streak = 7
                 cursor.execute(
                     f"UPDATE public.users set last_login='{today}', reward_streak = {reward_streak} where username='{user[0][1]}'")
+                cursor.execute(f"UPDATE public.users set daily_claim=False where username = '{username}' ")
             else:
                 cursor.execute(
                     f"UPDATE public.users set last_login='{today}', reward_streak = {1} where username='{user[0][1]}'")
+                cursor.execute(f"UPDATE public.users set daily_claim=False where username = '{username}' ")
         # -------------------------------------------
-        answer_ref = []
-        for i in user[0][4]['id']:
-            cursor.execute(f"SELECT * FROM users where ref_code = '{i}'")
-            ref = cursor.fetchall()
-            cursor.execute(f"SELECT score FROM public.referals_score where username = '{i}'")
-            ref_score = cursor.fetchall()
-            bonus = 0
-            if ref[0][5]:
-                bonus = '5000'
-            referal = {
-                'username': ref[0][1],
-                'refs': len(ref[0][4]['id']),
-                'bonus': bonus,
-                'reward': int(int(ref_score[0][0])/10),
-            }
-            answer_ref.append(referal)
         cursor.execute(f"SELECT * FROM users where username = '{username}'")
         user = cursor.fetchall()
         answer = {
@@ -101,16 +85,75 @@ def get_user(request):
             'score': user[0][2],
             'left_mining': formatted_time if formatted_time > "0" else "00:00",
             'mining_claim': user[0][12],
-            'referals': answer_ref,
             'ref_code': user[0][6],
             'position': rank[0][2],
             'tickets': user[0][11],
             'daily_stric': user[0][14],
+            "daily_claim": user[0][15],
 
         }
         return JsonResponse(answer)
     else:
         return JsonResponse({'error': 'user not exist'})
+
+
+@csrf_exempt
+def get_referals(request):
+    """Получение рефералов пользователя"""
+    cursor = connection.cursor()
+    username = request.POST.get('username')
+    cursor.execute(f"SELECT * FROM users where username = '{username}'")
+    user = cursor.fetchall()
+    answer_ref = []
+    count_referals = 0
+    for i in user[0][4]['id']:
+        count_referals+=1
+        cursor.execute(f"SELECT * FROM users where ref_code = '{i}'")
+        ref = cursor.fetchall()
+        cursor.execute(f"SELECT score FROM public.referals_score where username = '{i}'")
+        ref_score = cursor.fetchall()
+        bonus = 0
+        if ref[0][5]:
+            bonus = '5000'
+        referal = {
+            'username': ref[0][1],
+            'refs': len(ref[0][4]['id']),
+            'bonus': bonus,
+            'reward': int(int(ref_score[0][0]) / 10),
+        }
+        answer_ref.append(referal)
+    answer = {
+        'username': user[0][1],
+        'referals': answer_ref,
+        'total_referals': count_referals,
+    }
+    return JsonResponse(answer)
+
+
+@csrf_exempt
+def done_daily(request):
+    """Выполнение ежедневных тасок"""
+    cursor = connection.cursor()
+    username = request.POST.get('username')
+    cursor.execute(f"SELECT reward_streak, score, tickets FROM users where username = '{username}'")
+    user = cursor.fetchall()
+    cursor.execute(f"UPDATE public.users set daily_claim=True where username = '{username}' ")
+    if int(user[0][0]) == 1:
+        cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeyOne.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeyOne.TICKETS)} where username = '{username}' ")
+    if int(user[0][0]) == 2:
+        cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeyTwo.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeyTwo.TICKETS)} where username = '{username}' ")
+    if int(user[0][0]) == 3:
+        cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeyTree.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeyTree.TICKETS)} where username = '{username}' ")
+    if int(user[0][0]) == 4:
+        cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeyFour.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeyFour.TICKETS)} where username = '{username}' ")
+    if int(user[0][0]) == 5:
+        cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeyFive.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeyFive.TICKETS)} where username = '{username}' ")
+    if int(user[0][0]) == 6:
+        cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeySix.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeySix.TICKETS)} where username = '{username}' ")
+    if int(user[0][0]) >= 7:
+        cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeySeven.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeySeven.TICKETS)} where username = '{username}' ")
+    print(user[0][0])
+    return JsonResponse({'daily_claim': 'done'})
 
 
 @csrf_exempt

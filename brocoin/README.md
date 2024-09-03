@@ -25,8 +25,9 @@ settings.py, на 75 строке найти настройки базы дан�
 5) add/tickets/ - Добавляет тикеты пользователю
 6) remove/score/ - Отнимает очки пользователя
 7) remove/tickets/ - Отнимает тикеты пользователя
+8) get/referals/ - Получение рефералов пользователя
 
-<<<<<<< HEAD
+
 Описание типов возвращаемых данных:
 
 get/user/ - Ответ приходит в формате json который содержит в себе следующие поля:
@@ -37,8 +38,6 @@ get/user/ - Ответ приходит в формате json который с
 
 "last_tap" - datetime,
 
-"referals" - json,
-
 "ref_code" - string,
 
 "position" - int,
@@ -47,11 +46,80 @@ get/user/ - Ответ приходит в формате json который с
 
 Пример:
 
-{
+
     "username": "antonprox",
     "score": 31222,
     "left_mining": "00:00",
     "mining_claim": true,
+    "ref_code": "624161982",
+    "position": 1,
+    "tickets": 165,
+    "daily_stric": 1,
+    "daily_claim": False
+
+
+
+get/tasks - Ответ представляет собой массив содержащий json-ы со следующими полями:
+
+"id" - int,
+
+"description" - string,
+
+"points" - int,
+
+tickets - int,
+
+duration - string ("infinity" - неограниченная)
+
+"links" - string,
+
+"complete" - bool
+
+Пример:
+
+
+    "tasks": [
+        {
+            "id": 1,
+            "description": "Бро готовят задания",
+            "points": 1000,
+            "tickets": 0,
+            "duration": "infinity",
+            "links": "https://t.me/itsbrocoin",
+            "complete": true
+        },
+        {
+            "id": 2,
+            "description": "Второе задание",
+            "points": 5000,
+            "tickets": 0,
+            "duration": "infinity",
+            "links": "https://t.me/itsbrocoin",
+            "complete": true
+        },
+        {
+            "id": 3,
+            "description": "Subscribe my Channel",
+            "points": 1000,
+            "tickets": 0,
+            "duration": "infinity",
+            "links": "https://youtube.com",
+            "complete": false
+        }
+    ]
+
+
+get/referals - Получение рефералов пользователя
+
+"username" - string
+
+"referals" - массив json
+
+"total_referals" - int
+
+Пример
+
+    "username": "antonprox",
     "referals": [
         {
             "username": "antonprox_ref",
@@ -84,68 +152,14 @@ get/user/ - Ответ приходит в формате json который с
             "reward": 0
         },
         {
-            "username": "antonprox_ref12",
+            "username": "antonproxeeer",
             "refs": 0,
             "bonus": 0,
             "reward": 0
         }
     ],
-    "ref_code": "624161982",
-    "position": 1,
-    "tickets": 165,
-    "daily_stric": 1
-}
+    "total_referals": 6
 
-
-get/tasks - Ответ представляет собой массив содержащий json-ы со следующими полями:
-
-"id" - int,
-
-"description" - string,
-
-"points" - int,
-
-tickets - int,
-
-duration - string ("infinity" - неограниченная)
-
-"links" - string,
-
-"complete" - bool
-
-Пример:
-
-{
-    "tasks": [
-        {
-            "id": 1,
-            "description": "Бро готовят задания",
-            "points": 1000,
-            "tickets": 0,
-            "duration": "infinity",
-            "links": "https://t.me/itsbrocoin",
-            "complete": true
-        },
-        {
-            "id": 2,
-            "description": "Второе задание",
-            "points": 5000,
-            "tickets": 0,
-            "duration": "infinity",
-            "links": "https://t.me/itsbrocoin",
-            "complete": true
-        },
-        {
-            "id": 3,
-            "description": "Subscribe my Channel",
-            "points": 1000,
-            "tickets": 0,
-            "duration": "infinity",
-            "links": "https://youtube.com",
-            "complete": false
-        }
-    ]
-}
 
 v1.1 :
 

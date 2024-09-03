@@ -6,6 +6,8 @@ from users.views import remove_score
 from users.views import remove_tickets
 from users.views import start_mining
 from users.views import done_mining
+from users.views import get_referals
+from users.views import done_daily
 from tasks.views import get_tasks
 from tasks.views import done_tasks
 from django.urls import path
@@ -13,6 +15,7 @@ from django.urls import path
 
 urlpatterns = [
     path('get/user/', get_user),
+    path('get/referals/', get_referals),
     path('get/tasks/', get_tasks),
     path('get/ref_claim/', get_ref_claim),
     path('done/tasks/', done_tasks),
@@ -22,4 +25,5 @@ urlpatterns = [
     path('remove/tickets/', remove_tickets),
     path('start/mining/', start_mining),
     path('done/mining/', done_mining),
+    path('done/daily/', done_daily),
 ]
