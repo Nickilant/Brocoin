@@ -139,7 +139,8 @@ get/referals - Получение рефералов пользователя
     ],
     "total_referals": 6,
     "total_pages": 3,
-    "current_page": 1
+    "current_page": 1,
+    "total_score": 11000
 
 
 v1.1 :
