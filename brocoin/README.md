@@ -86,7 +86,8 @@ duration - string ("infinity" - неограниченная)
             "tickets": 0,
             "duration": "infinity",
             "links": "https://t.me/itsbrocoin",
-            "complete": true
+            "complete": true,
+            "priority": 2
         },
         {
             "id": 2,
@@ -95,7 +96,8 @@ duration - string ("infinity" - неограниченная)
             "tickets": 0,
             "duration": "infinity",
             "links": "https://t.me/itsbrocoin",
-            "complete": true
+            "complete": true,
+            "priority": 2
         },
         {
             "id": 3,
@@ -104,7 +106,8 @@ duration - string ("infinity" - неограниченная)
             "tickets": 0,
             "duration": "infinity",
             "links": "https://youtube.com",
-            "complete": false
+            "complete": false,
+            "priority": 2
         }
     ]
 
@@ -125,40 +128,18 @@ get/referals - Получение рефералов пользователя
             "username": "antonprox_ref",
             "refs": 0,
             "bonus": "5000",
-            "reward": 1000
+            "reward": 0
         },
         {
             "username": "antonprox_ref1",
             "refs": 0,
             "bonus": 0,
             "reward": 0
-        },
-        {
-            "username": "antonprox_ref2",
-            "refs": 0,
-            "bonus": 0,
-            "reward": 0
-        },
-        {
-            "username": "antonprox_ref10",
-            "refs": 0,
-            "bonus": 0,
-            "reward": 0
-        },
-        {
-            "username": "antonprox_ref11",
-            "refs": 0,
-            "bonus": 0,
-            "reward": 0
-        },
-        {
-            "username": "antonproxeeer",
-            "refs": 0,
-            "bonus": 0,
-            "reward": 0
         }
     ],
-    "total_referals": 6
+    "total_referals": 6,
+    "total_pages": 3,
+    "current_page": 1
 
 
 v1.1 :
