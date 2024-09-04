@@ -479,6 +479,47 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "/done/first_login/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "624161982",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/done/first_login/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"done",
+						"first_login",
+						""
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "antonprox",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
