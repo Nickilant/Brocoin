@@ -26,6 +26,7 @@ settings.py, на 75 строке найти настройки базы дан�
 6) remove/score/ - Отнимает очки пользователя
 7) remove/tickets/ - Отнимает тикеты пользователя
 8) get/referals/ - Получение рефералов пользователя
+9) switch_region/ - Изменение региона(изменение языка в аппке)
 
 
 Описание типов возвращаемых данных:
@@ -36,13 +37,27 @@ get/user/ - Ответ приходит в формате json который с
 
 "score" - int,
 
-"last_tap" - datetime,
+"left_mining" - datetime,
+
+"mining_claim" - bool,
 
 "ref_code" - string,
 
 "position" - int,
 
 "tickets" - int
+
+"daily_stric" - int
+
+"daily_calim" - bool
+
+"boxes" - int
+
+"region" - string
+
+"first_game" - bool
+
+"first_login" - bool
 
 Пример:
 
@@ -54,8 +69,12 @@ get/user/ - Ответ приходит в формате json который с
     "ref_code": "624161982",
     "position": 1,
     "tickets": 165,
+    "boxes": 0,
     "daily_stric": 1,
     "daily_claim": False
+    "first_login": false,
+    "region": "ru",
+    "first_game": true
 
 
 
