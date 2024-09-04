@@ -16,18 +16,19 @@
 					"formdata": [
 						{
 							"key": "username",
-							"value": "antonprox_ref12",
+							"value": "antonprox",
 							"type": "text"
 						},
 						{
 							"key": "user_id",
-							"value": "624161982557",
+							"value": "624161982",
 							"type": "text"
 						},
 						{
 							"key": "ref_code",
-							"value": "624161982",
-							"type": "text"
+							"value": "6241619823",
+							"type": "text",
+							"disabled": true
 						},
 						{
 							"key": "premium",
@@ -64,8 +65,8 @@
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "username",
-							"value": "antonprox",
+							"key": "user_id",
+							"value": "624161982",
 							"type": "text"
 						}
 					]
@@ -98,13 +99,13 @@
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "username",
-							"value": "antonprox",
+							"key": "user_id",
+							"value": "624161982",
 							"type": "text"
 						},
 						{
 							"key": "task_id",
-							"value": "1",
+							"value": "9",
 							"description": "Id таски",
 							"type": "text"
 						}
@@ -145,8 +146,8 @@
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "username",
-							"value": "antonprox",
+							"key": "user_id",
+							"value": "624161982",
 							"type": "text"
 						},
 						{
@@ -184,8 +185,8 @@
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "username",
-							"value": "antonprox",
+							"key": "user_id",
+							"value": "624161982",
 							"type": "text"
 						},
 						{
@@ -223,8 +224,8 @@
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "username",
-							"value": "antonprox",
+							"key": "user_id",
+							"value": "624161982",
 							"type": "text"
 						},
 						{
@@ -262,8 +263,8 @@
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "username",
-							"value": "antonprox",
+							"key": "user_id",
+							"value": "624161982",
 							"type": "text"
 						},
 						{
@@ -301,8 +302,8 @@
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
-							"key": "username",
-							"value": "antonprox",
+							"key": "user_id",
+							"value": "624161982",
 							"type": "text"
 						}
 					]
@@ -335,8 +336,8 @@
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
-							"key": "username",
-							"value": "antonprox",
+							"key": "user_id",
+							"value": "624161982",
 							"type": "text"
 						}
 					]
@@ -369,8 +370,8 @@
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
-							"key": "username",
-							"value": "antonprox",
+							"key": "user_id",
+							"value": "624161982",
 							"type": "text"
 						}
 					]
@@ -403,8 +404,8 @@
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "username",
-							"value": "antonprox",
+							"key": "user_id",
+							"value": "624161982",
 							"type": "text"
 						}
 					]
@@ -437,8 +438,8 @@
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "username",
-							"value": "antonprox",
+							"key": "user_id",
+							"value": "624161982",
 							"type": "text"
 						}
 					]
