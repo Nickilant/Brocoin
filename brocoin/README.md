@@ -58,6 +58,7 @@ get/user/ - Ответ приходит в формате json который с
 "first_game" - bool
 
 "first_login" - bool
+"advertising_limit" - int
 
 Пример:
 
@@ -75,6 +76,7 @@ get/user/ - Ответ приходит в формате json который с
     "first_login": false,
     "region": "ru",
     "first_game": true
+    "advertising_limit": 100
 
 
 

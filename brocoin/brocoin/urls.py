@@ -8,8 +8,12 @@ from users.views import start_mining
 from users.views import done_mining
 from users.views import get_referals
 from users.views import done_daily
+from users.views import done_first_login
+from users.views import switch_region
+from users.views import advertising_see
 from tasks.views import get_tasks
 from tasks.views import done_tasks
+from public.views import check_users
 from django.urls import path
 
 
@@ -26,4 +30,8 @@ urlpatterns = [
     path('start/mining/', start_mining),
     path('done/mining/', done_mining),
     path('done/daily/', done_daily),
+    path('done/first_login/', done_first_login),
+    path('switch_region/', switch_region),
+    path('check_users/', check_users),
+    path('advertising_see/', advertising_see),
 ]
