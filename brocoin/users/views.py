@@ -115,7 +115,7 @@ def get_referals(request):
 
     cursor.execute(f"SELECT * FROM users WHERE ref_code = '{user_id}'")
     user = cursor.fetchall()
-    cursor.execute(f"SELECT SUM(score) AS total_score FROM referals_score where username = '{user[0][6]}';")
+    cursor.execute(f"SELECT SUM(score) AS total_score FROM referals_score where username = '{user_id}'")
     total_score = cursor.fetchall()
     if not user:
         return JsonResponse({"error": "User not found"}, status=404)
