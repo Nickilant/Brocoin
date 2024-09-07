@@ -74,11 +74,11 @@ def get_user(request):
                 reward_streak = int(user[0][14])+1
                 cursor.execute(
                     f"UPDATE public.users set last_login='{today}', reward_streak = {reward_streak} where ref_code='{user[0][6]}'")
-                cursor.execute(f"UPDATE public.users set daily_claim=False, first_game=True where ref_code = '{user[0][6]}' ")
+                cursor.execute(f"UPDATE public.users set daily_claim=False, first_game=True,advertising_limit = 10 where ref_code = '{user[0][6]}' ")
             else:
                 cursor.execute(
                     f"UPDATE public.users set last_login='{today}', reward_streak = {1} where ref_code='{user[0][6]}'")
-                cursor.execute(f"UPDATE public.users set daily_claim=False, first_game=True where ref_code='{user[0][6]}' ")
+                cursor.execute(f"UPDATE public.users set daily_claim=False, first_game=True,advertising_limit = 10 where ref_code='{user[0][6]}' ")
         # -------------------------------------------
         cursor.execute(f"SELECT * FROM users where ref_code='{user[0][6]}'")
         user = cursor.fetchall()
@@ -97,6 +97,7 @@ def get_user(request):
             "region": user[0][17],
             "first_game": user[0][19],
             "advertising_limit": user[0][20],
+            "advertising_total": 10,
 
 
         }
@@ -327,7 +328,7 @@ def advertising_see(request):
     cursor = connection.cursor()
     cursor.execute(f"SELECT * FROM users where ref_code = '{user_id}'")
     user = cursor.fetchall()
-    cursor.execute(f"UPDATE users set advertising_limit = {int(user[0][20])-1} where ref_code = '{user_id}'")
+    cursor.execute(f"UPDATE users set tickets = {int(user[0][11])+1}, advertising_limit = {int(user[0][20])-1} where ref_code = '{user_id}'")
     return JsonResponse({'advertising see': 'done'})
 
 

@@ -520,6 +520,77 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "/switch_region/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "624161982",
+							"type": "text"
+						},
+						{
+							"key": "region",
+							"value": "ru",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/switch_region/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"switch_region",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/advertising_see/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "624161982",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/advertising_see/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"advertising_see",
+						""
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
