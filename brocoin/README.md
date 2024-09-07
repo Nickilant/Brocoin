@@ -79,7 +79,6 @@ get/user/ - Ответ приходит в формате json который с
     "first_login": false,
     "region": "ru",
     "first_game": true
-    "advertising_limit": 100
     "advertising_limit": 10,
     "advertising_total": 10,
 
