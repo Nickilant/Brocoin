@@ -58,6 +58,7 @@ get/user/ - Ответ приходит в формате json который с
 "first_game" - bool
 
 "first_login" - bool
+
 "advertising_limit" - int
 
 Пример:
