@@ -591,6 +591,45 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "/get/boxes/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "624161982",
+							"type": "text"
+						},
+						{
+							"key": "box",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/get/boxes/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"get",
+						"boxes",
+						""
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

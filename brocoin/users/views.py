@@ -224,9 +224,9 @@ def post_score(request):
     user = cursor.fetchall()
     summ_score = int(user[0][2]) + int(user_score)
     cursor.execute(f"UPDATE users set score = {summ_score}, first_game=False where ref_code = '{user_id}'")
-    if random.randint(1, 100) == 1:
-        cursor.execute(f"UPDATE users set boxes = {int(user[0][18])+1} where ref_code = '{user_id}'")
-        response_text = {'Added': 'Complete + box'}
+    #if random.randint(1, 100) == 1:
+    #    cursor.execute(f"UPDATE users set boxes = {int(user[0][18])+1} where ref_code = '{user_id}'")
+    #    response_text = {'Added': 'Complete + box'}
     cursor.execute(f"SELECT * FROM users where ref_code = '{user_id}'")
     user = cursor.fetchall()
     cursor.execute(f"SELECT * FROM public.referals_score where username = '{user[0][6]}'")
@@ -331,6 +331,19 @@ def advertising_see(request):
     cursor.execute(f"UPDATE users set tickets = {int(user[0][11])+1}, advertising_limit = {int(user[0][20])-1} where ref_code = '{user_id}'")
     return JsonResponse({'advertising see': 'done'})
 
+
+@csrf_exempt
+def post_boxes(request):
+    """Счет просмотра рекламы"""
+    # username = request.POST.get('username')
+    user_id = request.POST.get('user_id')
+    box = request.POST.get('box')
+    cursor = connection.cursor()
+    cursor.execute(f"SELECT * FROM users where ref_code = '{user_id}'")
+    user = cursor.fetchall()
+    cursor.execute(f"UPDATE users set boxes = {int(user[0][18]) + int(box)} where ref_code = '{user_id}'")
+    response_text = {'Added': 'Complete + box'}
+    return JsonResponse(response_text)
 
 
 

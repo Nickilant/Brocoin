@@ -10,6 +10,7 @@ from users.views import get_referals
 from users.views import done_daily
 from users.views import done_first_login
 from users.views import switch_region
+from users.views import post_boxes
 from users.views import advertising_see
 from tasks.views import get_tasks
 from tasks.views import done_tasks
@@ -20,6 +21,7 @@ urlpatterns = [
     path('get/user/', get_user),
     path('get/referals/', get_referals),
     path('get/tasks/', get_tasks),
+    path('get/boxes/', post_boxes),
     path('get/ref_claim/', get_ref_claim),
     path('done/tasks/', done_tasks),
     path('add/score/', post_score),
