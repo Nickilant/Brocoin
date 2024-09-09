@@ -2,6 +2,12 @@ from django.db import connection
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import requests
+from django.shortcuts import render
+
+
+@csrf_exempt
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)
 
 
 @csrf_exempt

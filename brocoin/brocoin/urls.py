@@ -15,6 +15,10 @@ from users.views import advertising_see
 from tasks.views import get_tasks
 from tasks.views import done_tasks
 from django.urls import path
+from django.conf.urls import handler404
+from tasks.views import custom_404
+
+handler404 = custom_404
 
 
 urlpatterns = [
