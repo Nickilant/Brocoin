@@ -3,8 +3,8 @@ from django.http import JsonResponse
 
 # Допустимые URL (рефереры)
 ALLOWED_REFERERS = [
-    'https://itsbrocoin.wtf/',
-    'https://broski-tma.netlify.app/',
+    'https://itsbrocoin.wtf',
+    'https://broski-tma.netlify.app',
 ]
 
 class RefererCheckMiddleware:
