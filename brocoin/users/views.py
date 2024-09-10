@@ -9,7 +9,7 @@ from django.core.paginator import Paginator
 import random
 
 
-#@csrf_exempt
+@csrf_exempt
 def get_user(request):
     """Получение данных по пользователю"""
     cursor = connection.cursor()
