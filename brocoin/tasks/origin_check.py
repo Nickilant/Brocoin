@@ -5,6 +5,7 @@ from django.http import JsonResponse
 ALLOWED_ORIGINS = [
     'https://itsbrocoin.wtf',
     'https://broski-tma.netlify.app',
+    'https://broski.pages.dev',
 ]
 
 class OriginCheckMiddleware:
