@@ -17,11 +17,21 @@ def get_user(request):
     user_id = request.POST.get('user_id')
     ref_code = request.POST.get('ref_code')
     premium = request.POST.get('premium')
+    ip = request.META.get('HTTP_X_FORWARDED_FOR')
+    if ip:
+        # В случае с X-Forwarded-For это может быть список IP, берем первый
+        ip = ip.split(',')[0]
+    else:
+        # Если заголовка X-Forwarded-For нет, используем REMOTE_ADDR
+        ip = request.META.get('REMOTE_ADDR')
+    user_agent = request.META.get('HTTP_USER_AGENT')
+    session_cookie = request.COOKIES
+
     cursor.execute(f"SELECT * FROM users where ref_code = '{user_id}'")
     user = cursor.fetchall()
     if not user:
         refs = json.dumps({'id': []})
-        cursor.execute(f"INSERT INTO public.users (sid,username,score,last_score,last_tap,ref_code,refs,energy,tickets,mining_claim, last_login, reward_streak, region) VALUES ('{uuid.uuid4()}','{username}',25,0,'{datetime.now()}','{user_id}',{repr(refs)},1000,25, True, '{date.today()}',1, 'eng')")
+        cursor.execute(f"INSERT INTO public.users (sid,username,score,last_score,last_tap,ref_code,refs,energy,tickets,mining_claim, last_login, reward_streak, region, ip_addr) VALUES ('{uuid.uuid4()}','{username}',25,0,'{datetime.now()}','{user_id}',{repr(refs)},1000,25, True, '{date.today()}',1, 'eng','{ip}')")
         cursor.execute(f"INSERT INTO public.referals_score (username,score) VALUES ('{user_id}',0)")
         if ref_code:
             cursor.execute(f"SELECT refs, tickets, score FROM users WHERE ref_code='{ref_code}'")
@@ -69,15 +79,17 @@ def get_user(request):
         yesterday = today - timedelta(days=1)
         if last_login == today:
             pass
+            cursor.execute(
+                f"UPDATE public.users set ip_addr = '{ip}' where ref_code = '{user[0][6]}' ")
         else:
             if last_login == yesterday:
                 reward_streak = int(user[0][14])+1
                 cursor.execute(
-                    f"UPDATE public.users set last_login='{today}', reward_streak = {reward_streak} where ref_code='{user[0][6]}'")
+                    f"UPDATE public.users set last_login='{today}', reward_streak = {reward_streak}, ip_addr = '{ip}' where ref_code='{user[0][6]}'")
                 cursor.execute(f"UPDATE public.users set daily_claim=False, first_game=True,advertising_limit = 10 where ref_code = '{user[0][6]}' ")
             else:
                 cursor.execute(
-                    f"UPDATE public.users set last_login='{today}', reward_streak = {1} where ref_code='{user[0][6]}'")
+                    f"UPDATE public.users set last_login='{today}', reward_streak = {1}, ip_addr = '{ip}' where ref_code='{user[0][6]}'")
                 cursor.execute(f"UPDATE public.users set daily_claim=False, first_game=True,advertising_limit = 10 where ref_code='{user[0][6]}' ")
         # -------------------------------------------
         cursor.execute(f"SELECT * FROM users where ref_code='{user[0][6]}'")
