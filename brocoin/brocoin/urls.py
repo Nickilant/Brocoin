@@ -22,7 +22,7 @@ handler404 = custom_404
 
 
 urlpatterns = [
-    path('get/user/', get_user),
+    path('gets/user/', get_user),
     path('get/referals/', get_referals),
     path('get/tasks/', get_tasks),
     path('get/boxes/', post_boxes),
