@@ -2,19 +2,19 @@
 from django.http import JsonResponse
 
 # Допустимые URL (рефереры)
-ALLOWED_REFERER = 'https://itsbrocoin.wtf/'
+ALLOWED_REFERERS = [
+    'https://itsbrocoin.wtf/',
+    'https://broski-tma.netlify.app/',
+]
 
 class RefererCheckMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
-        # Получаем заголовок Referer из запроса
         referer = request.headers.get('Referer')
 
-        # Проверяем, что реферер начинается с допустимого URL
-        if not referer or not referer.startswith(ALLOWED_REFERER):
+        if not referer or not any(referer.startswith(allowed) for allowed in ALLOWED_REFERERS):
             return JsonResponse({'error': 'Unauthorized: Invalid Referer'}, status=403)
 
-        # Передаем управление следующему middleware или обработчику
         return self.get_response(request)

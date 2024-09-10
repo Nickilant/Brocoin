@@ -4,6 +4,7 @@ from django.http import JsonResponse
 # Допустимые домены
 ALLOWED_ORIGINS = [
     'https://itsbrocoin.wtf',
+    'https://broski-tma.netlify.app/',
 ]
 
 class OriginCheckMiddleware:
