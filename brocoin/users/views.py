@@ -340,7 +340,7 @@ def advertising_see(request):
     cursor = connection.cursor()
     cursor.execute(f"SELECT * FROM users where ref_code = '{user_id}'")
     user = cursor.fetchall()
-    cursor.execute(f"UPDATE users set tickets = {int(user[0][11])+5}, advertising_limit = {int(user[0][20])-1} where ref_code = '{user_id}'")
+    cursor.execute(f"UPDATE users set tickets = {int(user[0][11])+5}, advertising_limit = {int(user[0][20])} where ref_code = '{user_id}'")
     return JsonResponse({'advertising see': 'done'})
 
 
