@@ -100,6 +100,12 @@ duration - string ("infinity" - неограниченная)
 
 "complete" - bool
 
+"priority" - int (1 если приоритетная, 2 если нет)
+
+"region" - string (eng, ru и тд если региональная, universal если для всех)
+
+
+
 Пример:
 
 
@@ -112,7 +118,8 @@ duration - string ("infinity" - неограниченная)
             "duration": "infinity",
             "links": "https://t.me/itsbrocoin",
             "complete": true,
-            "priority": 2
+            "priority": 2,
+            "region": "universal"
         },
         {
             "id": 2,
@@ -123,6 +130,7 @@ duration - string ("infinity" - неограниченная)
             "links": "https://t.me/itsbrocoin",
             "complete": true,
             "priority": 2
+            "region": "ru"
         },
         {
             "id": 3,
@@ -133,6 +141,7 @@ duration - string ("infinity" - неограниченная)
             "links": "https://youtube.com",
             "complete": false,
             "priority": 2
+            "region": "eng"
         }
     ]
 
