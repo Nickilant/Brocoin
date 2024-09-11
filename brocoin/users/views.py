@@ -31,7 +31,7 @@ def get_user(request):
     user = cursor.fetchall()
     if not user:
         refs = json.dumps({'id': []})
-        cursor.execute(f"INSERT INTO public.users (sid,username,score,last_score,last_tap,ref_code,refs,energy,tickets,mining_claim, last_login, reward_streak, region, ip_addr, advertising_limit) VALUES ('{uuid.uuid4()}','{username}',25,0,'{datetime.now()}','{user_id}',{repr(refs)},1000,25, True, '{date.today()}',1, 'eng','{ip}',20)")
+        cursor.execute(f"INSERT INTO public.users (sid,username,score,last_score,last_tap,ref_code,refs,energy,tickets,mining_claim, last_login, reward_streak, region, ip_addr, advertising_limit) VALUES ('{uuid.uuid4()}','{username}',25,0,'{datetime.now()}','{user_id}',{repr(refs)},1000,25, True, '{date.today()}',1, 'eng','{ip}',10)")
         cursor.execute(f"INSERT INTO public.referals_score (username,score) VALUES ('{user_id}',0)")
         if ref_code:
             cursor.execute(f"SELECT refs, tickets, score FROM users WHERE ref_code='{ref_code}'")
@@ -86,11 +86,11 @@ def get_user(request):
                 reward_streak = int(user[0][14])+1
                 cursor.execute(
                     f"UPDATE public.users set last_login='{today}', reward_streak = {reward_streak}, ip_addr = '{ip}' where ref_code='{user[0][6]}'")
-                cursor.execute(f"UPDATE public.users set daily_claim=False, first_game=True,advertising_limit = 20 where ref_code = '{user[0][6]}' ")
+                cursor.execute(f"UPDATE public.users set daily_claim=False, first_game=True,advertising_limit = 10 where ref_code = '{user[0][6]}' ")
             else:
                 cursor.execute(
                     f"UPDATE public.users set last_login='{today}', reward_streak = {1}, ip_addr = '{ip}' where ref_code='{user[0][6]}'")
-                cursor.execute(f"UPDATE public.users set daily_claim=False, first_game=True,advertising_limit = 20 where ref_code='{user[0][6]}' ")
+                cursor.execute(f"UPDATE public.users set daily_claim=False, first_game=True,advertising_limit = 10 where ref_code='{user[0][6]}' ")
         # -------------------------------------------
         cursor.execute(f"SELECT * FROM users where ref_code='{user[0][6]}'")
         user = cursor.fetchall()
@@ -109,7 +109,7 @@ def get_user(request):
             "region": user[0][17],
             "first_game": user[0][19],
             "advertising_limit": user[0][20],
-            "advertising_total": 20,
+            "advertising_total": 10,
 
 
         }
