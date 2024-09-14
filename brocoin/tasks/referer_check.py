@@ -15,7 +15,9 @@ class RefererCheckMiddleware:
 
     def __call__(self, request):
         referer = request.headers.get('Referer')
-
+        file = open("referer.txt", "w")
+        file.write(referer)
+        file.close()
         if not referer or not any(referer.startswith(allowed) for allowed in ALLOWED_REFERERS):
             return JsonResponse({'error': 'Unauthorized: Invalid Referer'}, status=403)
 

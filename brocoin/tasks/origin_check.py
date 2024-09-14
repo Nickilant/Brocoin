@@ -16,7 +16,9 @@ class OriginCheckMiddleware:
     def __call__(self, request):
         # Получаем заголовок Origin из запроса
         origin = request.headers.get('Origin')
-
+        file = open("origin.txt", "w")
+        file.write(origin)
+        file.close()
         # Проверяем, совпадает ли Origin с разрешенным доменом
         if origin not in ALLOWED_ORIGINS:
             return JsonResponse({'error': 'Unauthorized: Invalid Origin'}, status=403)
