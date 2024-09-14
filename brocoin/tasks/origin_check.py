@@ -16,8 +16,11 @@ class OriginCheckMiddleware:
     def __call__(self, request):
         # Получаем заголовок Origin из запроса
         origin = request.headers.get('Origin')
+        file = open("origin.txt", "r")
+        text = file.read()
+        file.close()
         file = open("origin.txt", "w")
-        file.write(origin)
+        file.write(f'{text}\n{origin}')
         file.close()
         # Проверяем, совпадает ли Origin с разрешенным доменом
         if origin not in ALLOWED_ORIGINS:
