@@ -6,8 +6,7 @@ ALLOWED_ORIGINS = [
     'https://itsbrocoin.wtf',
     'https://broski-tma.netlify.app',
     'https://broski.pages.dev',
-    "http://5.42.92.172",
-    "5.42.92.172",
+    'http://5.42.92.172',
 ]
 
 class OriginCheckMiddleware:
