@@ -7,6 +7,7 @@ ALLOWED_REFERERS = [
     'https://broski-tma.netlify.app',
     'https://broski.pages.dev',
     'http://5.42.92.172',
+    'https://release.broski.pages.dev',
 ]
 
 class RefererCheckMiddleware:
