@@ -110,6 +110,7 @@ def get_user(request):
             "first_game": user[0][19],
             "advertising_limit": user[0][20],
             "advertising_total": 10,
+            "ton_balanse": user[0][22]
 
 
         }
