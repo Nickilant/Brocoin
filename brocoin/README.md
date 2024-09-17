@@ -63,6 +63,8 @@ get/user/ - Ответ приходит в формате json который с
 
 "advertising_total" - int
 
+"ton_balanse" - int
+
 Пример:
 
 
@@ -81,6 +83,7 @@ get/user/ - Ответ приходит в формате json который с
     "first_game": true
     "advertising_limit": 10,
     "advertising_total": 10,
+    "ton_balanse": 0.41
 
 
 
