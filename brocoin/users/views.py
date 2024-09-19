@@ -59,7 +59,7 @@ def get_user(request):
         # Преобразуем строку в объект datetime
         db_time = datetime.strptime(db_time_str, "%Y-%m-%d %H:%M:%S.%f")
         # Получаем текущее время
-        current_time = datetime.now()
+        current_time = datetime.now() + timedelta(hours=2)
         # Вычисляем разницу между текущим временем и временем из базы данных
         time_diff = current_time - db_time
         # Время, соответствующее 8 часам
