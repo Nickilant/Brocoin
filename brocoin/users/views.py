@@ -296,7 +296,7 @@ def start_mining(request):
     # username = request.POST.get('username')
     user_id = request.POST.get('user_id')
     cursor = connection.cursor()
-    cursor.execute(f"UPDATE users set last_tap='{datetime.now()}', mining_claim = False where ref_code = '{user_id}'")
+    cursor.execute(f"UPDATE users set last_tap='{datetime.now() + timedelta(hours=2)}', mining_claim = False where ref_code = '{user_id}'")
     return JsonResponse({'Mining': 'Start'})
 
 
