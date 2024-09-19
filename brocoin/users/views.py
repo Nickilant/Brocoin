@@ -6,7 +6,7 @@ import uuid
 import users.enums as dailyEnums
 from datetime import datetime, timedelta, date
 from django.core.paginator import Paginator
-import random
+from requests import request as req
 
 
 @csrf_exempt
@@ -356,6 +356,20 @@ def post_boxes(request):
     user = cursor.fetchall()
     cursor.execute(f"UPDATE users set boxes = {int(user[0][18]) + int(box)} where ref_code = '{user_id}'")
     response_text = {'Added': 'Complete + box'}
+    return JsonResponse(response_text)
+
+
+@csrf_exempt
+def check_task(request):
+    """Счет просмотра рекламы"""
+    # username = request.POST.get('username')
+    user_id = request.POST.get('user_id')
+    task_id = request.POST.get('task_id')
+    cursor = connection.cursor()
+    cursor.execute(f"SELECT check_api FROM public.tasks where id = {task_id}")
+    api = cursor.fetchall()[0][0]
+    response = req(url=f'{api}{user_id}', method='get', verify=False)
+    response_text = {'complete_task': f'{json.loads(response.text)['status']}'}
     return JsonResponse(response_text)
 
 
