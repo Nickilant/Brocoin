@@ -368,9 +368,13 @@ def check_task(request):
     cursor = connection.cursor()
     cursor.execute(f"SELECT check_api FROM public.tasks where id = {task_id}")
     api = cursor.fetchall()[0][0]
-    response = req(url=f'{api}{user_id}', method='get', verify=False)
-    response_text = {'complete_task': f'{json.loads(response.text)['status']}'}
-    return JsonResponse(response_text)
+    if api == 'noapi':
+        response_text = {'complete_task': 'True'}
+        return JsonResponse(response_text)
+    else:
+        response = req(url=f'{api}{user_id}', method='get', verify=False)
+        response_text = {'complete_task': f'{json.loads(response.text)['status']}'}
+        return JsonResponse(response_text)
 
 
 
