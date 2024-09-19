@@ -71,6 +71,8 @@ get/user/ - Ответ приходит в формате json который с
 
 "ton_balanse" - int
 
+"push_see" - bool (true если посмотрел, false если нет)
+
 Пример:
 
 

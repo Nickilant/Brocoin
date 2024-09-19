@@ -110,7 +110,8 @@ def get_user(request):
             "first_game": user[0][19],
             "advertising_limit": user[0][20],
             "advertising_total": 10,
-            "ton_balanse": user[0][22]
+            "ton_balanse": user[0][22],
+            "push_see": user[0][23]
 
 
         }
@@ -377,4 +378,10 @@ def check_task(request):
         return JsonResponse(response_text)
 
 
-
+@csrf_exempt
+def see_push_update(request):
+    """Статус просмотра обновлений"""
+    user_id = request.POST.get('user_id')
+    cursor = connection.cursor()
+    cursor.execute(f"UPDATE public.users set push_see = true where ref_code = '{user_id}'")
+    return JsonResponse({'see': 'done'})

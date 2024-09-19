@@ -250,6 +250,7 @@ CREATE TABLE public.users (
     advertising_limit integer DEFAULT 200,
     ip_addr text,
     ton_balanse double precision DEFAULT 0
+    push_see bool DEFAULT false,
 );
 
 

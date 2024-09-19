@@ -630,6 +630,63 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "/check/task/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "antonprox",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "user_id",
+							"value": "624161982",
+							"type": "text"
+						},
+						{
+							"key": "ref_code",
+							"value": "6241619823",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "premium",
+							"value": "True",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "task_id",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/check/task/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"check",
+						"task",
+						""
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
