@@ -16,7 +16,9 @@ def get_tasks(request):
     cursor = connection.cursor()
     # username = request.POST.get('username')
     user_id = request.POST.get('user_id')
-    cursor.execute(f"SELECT * FROM tasks")
+    cursor.execute(f"SELECT region FROM public.users where ref_code = '{user_id}'")
+    region = cursor.fetchall()[0][0]
+    cursor.execute(f"SELECT * FROM tasks where region = '{region}' OR region = 'universal'")
     tasks = cursor.fetchall()
     if tasks:
         answer = []
@@ -85,9 +87,6 @@ def check_tasks(request):
     #TODO узнать параметры
     r = requests.post(api, data={'user_id': f'{user_id}'})
     #TODO узнать ответ и в зависимости от него возвращать его на фронт
-
-
-
     return JsonResponse({'task': 'completed'})
 
 
