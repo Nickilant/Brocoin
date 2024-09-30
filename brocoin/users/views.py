@@ -31,7 +31,7 @@ def get_user(request):
     user = cursor.fetchall()
     if not user:
         refs = json.dumps({'id': []})
-        cursor.execute(f"INSERT INTO public.users (sid,username,score,last_score,last_tap,ref_code,refs,energy,tickets,mining_claim, last_login, reward_streak, region, ip_addr, advertising_limit) VALUES ('{uuid.uuid4()}','{username}',25,0,'{datetime.now()}','{user_id}',{repr(refs)},1000,25, True, '{date.today()}',1, 'eng','{ip}',10)")
+        cursor.execute(f"INSERT INTO public.users (sid,username,score,last_score,last_tap,ref_code,refs,energy,tickets,mining_claim, last_login, reward_streak, region, ip_addr, advertising_limit) VALUES ('{uuid.uuid4()}','{username}',25,0,'{datetime.now()}','{user_id}',{repr(refs)},1000,5, True, '{date.today()}',1, 'eng','{ip}',10)")
         cursor.execute(f"INSERT INTO public.referals_score (username,score) VALUES ('{user_id}',0)")
         if ref_code:
             cursor.execute(f"SELECT refs, tickets, score FROM users WHERE ref_code='{ref_code}'")
@@ -41,10 +41,10 @@ def get_user(request):
             actual_score = referals[0][2]
             actual_refs['id'].append(user_id)
             if not premium:
-                cursor.execute(f"UPDATE users set refs='{json.dumps(actual_refs)}', tickets = {int(actual_tickets) + 3} where ref_code='{ref_code}'")
+                cursor.execute(f"UPDATE users set refs='{json.dumps(actual_refs)}', tickets = {int(actual_tickets) + 1} where ref_code='{ref_code}'")
             else:
                 cursor.execute(
-                    f"UPDATE users set refs='{json.dumps(actual_refs)}', tickets = {int(actual_tickets) + 12}, score = {int(actual_score) + 50} where ref_code='{ref_code}'")
+                    f"UPDATE users set refs='{json.dumps(actual_refs)}', tickets = {int(actual_tickets) + 3}, score = {int(actual_score) + 50} where ref_code='{ref_code}'")
     cursor.execute(f"SELECT * FROM users where ref_code = '{user_id}'")
     user = cursor.fetchall()
 

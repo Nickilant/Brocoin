@@ -1,33 +1,33 @@
 class DeyOne:
-    TICKETS = 3
+    TICKETS = 1
     POINTS = 30
 
 
 class DeyTwo:
-    TICKETS = 6
+    TICKETS = 2
     POINTS = 50
 
 
 class DeyTree:
-    TICKETS = 9
+    TICKETS = 3
     POINTS = 75
 
 
 class DeyFour:
-    TICKETS = 9
+    TICKETS = 4
     POINTS = 100
 
 
 class DeyFive:
-    TICKETS = 12
+    TICKETS = 5
     POINTS = 150
 
 
 class DeySix:
-    TICKETS = 15
+    TICKETS = 6
     POINTS = 250
 
 
 class DeySeven:
-    TICKETS = 15
+    TICKETS = 7
     POINTS = 500
