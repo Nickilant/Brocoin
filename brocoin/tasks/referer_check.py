@@ -8,6 +8,7 @@ ALLOWED_REFERERS = [
     'https://broski.pages.dev',
     'http://5.42.92.172',
     'https://release.broski.pages.dev',
+    'https://test.itsbrocoin.wtf',
 ]
 
 class RefererCheckMiddleware:
