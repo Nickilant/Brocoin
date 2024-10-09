@@ -306,10 +306,10 @@ def done_mining(request):
     # username = request.POST.get('username')
     user_id = request.POST.get('user_id')
     cursor = connection.cursor()
-    cursor.execute(f"SELECT * FROM users where ref_code = '{user_id}'")
+    cursor.execute(f"SELECT level FROM pvp.characters where user_id = {user_id}")
     user = cursor.fetchall()
-    summ_score = int(user[0][2]) + 72
-    cursor.execute(f"UPDATE users set mining_claim = True, score = {summ_score} where ref_code = '{user_id}'")
+    cursor.execute(f"UPDATE users set mining_claim = True where ref_code = '{user_id}'")
+    cursor.execute(f"UPDATE pvp.characters set experience = (experience + {user[0][0]}) where user_id = {user_id}")
     return JsonResponse({'Mining': 'Done'})
 
 
