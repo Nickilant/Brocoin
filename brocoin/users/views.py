@@ -86,11 +86,11 @@ def get_user(request):
                 reward_streak = int(user[0][14])+1
                 cursor.execute(
                     f"UPDATE public.users set last_login='{today}', reward_streak = {reward_streak}, ip_addr = '{ip}' where ref_code='{user[0][6]}'")
-                cursor.execute(f"UPDATE public.users set daily_claim=False, first_game=True,advertising_limit = 10 where ref_code = '{user[0][6]}' ")
+                cursor.execute(f"UPDATE public.users set daily_claim=False,advertising_limit = 10 where ref_code = '{user[0][6]}' ")
             else:
                 cursor.execute(
                     f"UPDATE public.users set last_login='{today}', reward_streak = {1}, ip_addr = '{ip}' where ref_code='{user[0][6]}'")
-                cursor.execute(f"UPDATE public.users set daily_claim=False, first_game=True,advertising_limit = 10 where ref_code='{user[0][6]}' ")
+                cursor.execute(f"UPDATE public.users set daily_claim=False,advertising_limit = 10 where ref_code='{user[0][6]}' ")
         # -------------------------------------------
         cursor.execute(f"SELECT * FROM users where ref_code='{user[0][6]}'")
         user = cursor.fetchall()

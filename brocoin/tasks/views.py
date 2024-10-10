@@ -36,6 +36,7 @@ def get_tasks(request):
                 'title': task[1],
                 'points': task[2],
                 'tickets': task[5],
+                'experience': task[11],
                 'duration': task[6],
                 'links': task[4],
                 'complete': complete_task,
@@ -61,7 +62,7 @@ def done_tasks(request):
     score = user_sid[0][1]
     tickets = user_sid[0][2]
     cursor.execute(f"INSERT INTO public.user_tasks (user_id, task_id) VALUES ('{user_sid[0][0]}', '{int(task_id)}')")
-    cursor.execute(f"SELECT points, tickets from tasks where id = {task_id}")
+    cursor.execute(f"SELECT points, tickets, experience from tasks where id = {task_id}")
     taska = cursor.fetchall()
     taska_points = taska[0][0]
     taska_tickets = taska[0][1]
@@ -71,6 +72,8 @@ def done_tasks(request):
     except Exception as e:
         itog_tickets = int(tickets)
     cursor.execute(f"UPDATE public.users set score = {itog_score}, tickets = {itog_tickets} where ref_code = '{user_id}'")
+    cursor.execute(
+        f"UPDATE pvp.characters set experience = (experience + {taska[0][2]}) where user_id = {user_id}")
     return JsonResponse({'tasks_done': 'complete'})
 
 @csrf_exempt
