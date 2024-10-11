@@ -308,6 +308,8 @@ def done_mining(request):
     cursor = connection.cursor()
     cursor.execute(f"SELECT level FROM pvp.characters where user_id = {user_id}")
     user = cursor.fetchall()
+    if user[0][0] == 0:
+        user[0][0] = 1
     cursor.execute(f"UPDATE users set mining_claim = True where ref_code = '{user_id}'")
     cursor.execute(f"UPDATE pvp.characters set experience = (experience + {user[0][0]}) where user_id = {user_id}")
     return JsonResponse({'Mining': 'Done'})
