@@ -115,6 +115,28 @@ def get_user(request):
 
 
         }
+
+        #--------------------Стата
+        try:
+            current_date = datetime.now().date()
+            cursor.execute(f"SELECT user_count FROM stats.active_users WHERE date = '{current_date}' AND language = 'en' AND premium = {premium}")
+            result = cursor.fetchone()
+            if result:
+                # Если запись существует, увеличиваем user_count на 1
+                new_user_count = result[0] + 1
+                cursor.execute("""
+                       UPDATE stats.active_users 
+                       SET user_count = %s 
+                       WHERE date = %s AND language = %s AND premium = %s;
+                   """, (new_user_count, current_date, 'eng', premium))
+            else:
+                # Если записи нет, создаем новую
+                cursor.execute("""
+                       INSERT INTO stats.active_users (date, reg_date, user_count, premium, language) 
+                       VALUES (%s, %s, %s, %s, %s);
+                   """, (current_date, current_date, 1, premium, 'eng'))
+        except Exception as e:
+            print(e)
         return JsonResponse(answer)
     else:
         return JsonResponse({'error': 'user not exist'})
