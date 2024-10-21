@@ -266,7 +266,7 @@ def get_ref_claim(request):
             cursor.execute(f"UPDATE public.referals_score set score=0 where username = '{i}'")
             score_up += int(ref_score[0][1])
         cursor.execute(
-            f"UPDATE public.users SET score = '{int(user[0][2]) + int((score_up / 10))}' where ref_code = '{user[0][6]}'")
+            f"UPDATE public.users SET score = '{int(user[0][2]) + int((score_up / 100)*float(user[0][25]))}' where ref_code = '{user[0][6]}'")
         return JsonResponse({'Claim': 'Complete'})
     except Exception as e:
         return JsonResponse({'Claim': f'Error: {e}'})
