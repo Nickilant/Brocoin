@@ -218,7 +218,7 @@ def get_referals(request):
         'total_referals': paginator.count,
         'total_pages': paginator.num_pages,
         'current_page': page,
-        'total_score': total_score/10,
+        'total_score': (total_score/100)*float(user[0][25]),
     }
     return JsonResponse(answer)
 
