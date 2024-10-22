@@ -49,7 +49,7 @@ def get_user(request):
     user = cursor.fetchall()
 
     if user:
-        cursor.execute(f"UPDATE public.users set username = '{username}' where ref_code = '{user_id}'")
+        #cursor.execute(f"UPDATE public.users set username = '{username}' where ref_code = '{user_id}'")
         cursor.execute(
             f"SELECT username, score, rank FROM (SELECT username, score, RANK() OVER (ORDER BY score DESC) AS rank FROM public.users) AS ranked_users WHERE username = '{user[0][1]}'")
         rank = cursor.fetchall()
