@@ -50,7 +50,7 @@ def get_user(request):
 
     if user:
         cursor.execute(
-            f"SELECT username, score, rank FROM (SELECT username, score, RANK() OVER (ORDER BY score DESC) AS rank FROM public.users) AS ranked_users WHERE username = '{username}'")
+            f"SELECT username, score, rank FROM (SELECT username, score, RANK() OVER (ORDER BY score DESC) AS rank FROM public.users) AS ranked_users WHERE username = '{user[0][1]}'")
         rank = cursor.fetchall()
         cursor.execute(f"SELECT * FROM users where ref_code = '{user_id}'")
         user = cursor.fetchall()
