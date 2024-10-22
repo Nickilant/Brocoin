@@ -137,6 +137,7 @@ def get_user(request):
                 except Exception as e:
                     print(e)
         # -------------------------------------------
+        cursor.execute(f"UPDATE public.users set username = '{username}' where ref_code = '{user_id}'")
         cursor.execute(f"SELECT * FROM users where ref_code='{user[0][6]}'")
         user = cursor.fetchall()
         answer = {
