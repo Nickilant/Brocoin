@@ -16,6 +16,7 @@ from tasks.views import get_tasks
 from tasks.views import done_tasks
 from users.views import check_task
 from users.views import see_push_update
+from users.views import daily_event_update
 from django.urls import path
 from django.conf.urls import handler404
 from tasks.views import custom_404
@@ -42,4 +43,5 @@ urlpatterns = [
     path('advertising_see/', advertising_see),
     path('check/task/', check_task),
     path('push_see/', see_push_update),
+    path('daily_event/', daily_event_update),
 ]

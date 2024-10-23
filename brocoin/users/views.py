@@ -439,7 +439,7 @@ def see_push_update(request):
 
 
 @csrf_exempt
-def see_push_update(request):
+def daily_event_update(request):
     """Статус просмотра обновлений"""
     user_id = request.POST.get('user_id')
     cursor = connection.cursor()
