@@ -157,7 +157,8 @@ def get_user(request):
             "advertising_limit": user[0][20],
             "advertising_total": 10,
             "ton_balanse": user[0][22],
-            "push_see": user[0][23]
+            "push_see": user[0][23],
+            "daily_event": user[0][26]
 
 
         }
@@ -435,3 +436,12 @@ def see_push_update(request):
     cursor = connection.cursor()
     cursor.execute(f"UPDATE public.users set push_see = true where ref_code = '{user_id}'")
     return JsonResponse({'see': 'done'})
+
+
+@csrf_exempt
+def see_push_update(request):
+    """Статус просмотра обновлений"""
+    user_id = request.POST.get('user_id')
+    cursor = connection.cursor()
+    cursor.execute(f"UPDATE public.users set daily_event = true where ref_code = '{user_id}'")
+    return JsonResponse({'daily_event': 'done'})
