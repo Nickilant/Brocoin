@@ -158,7 +158,7 @@ def get_user(request):
             "advertising_total": 10,
             "ton_balanse": user[0][22],
             "push_see": user[0][23],
-            "daily_event": user[0][27]
+            "daily_event": user[0][28]
 
 
         }
