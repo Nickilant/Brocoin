@@ -38,7 +38,7 @@ def get_user(request):
         refs = json.dumps({'id': []})
         cursor.execute(f"INSERT INTO public.users (sid,username,score,last_score,last_tap,ref_code,refs,energy,tickets,mining_claim, last_login, reward_streak, region, ip_addr, advertising_limit, premium) VALUES ('{uuid.uuid4()}','{username}',25,0,'{datetime.now()}','{user_id}',{repr(refs)},1000,5, True, '{date.today()}',1, 'eng','{ip}',10, {premium != 'undefined'})")
         cursor.execute(f"INSERT INTO public.referals_score (username,score) VALUES ('{user_id}',0)")
-        if ref_code:
+        if ref_code != 'undefined':
             cursor.execute(f"SELECT refs, tickets, score FROM users WHERE ref_code='{ref_code}'")
             referals = cursor.fetchall()
             actual_refs = referals[0][0]
