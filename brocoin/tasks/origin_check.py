@@ -36,7 +36,7 @@ class OriginCheckMiddleware:
 
     def check_google_metric_id(self, request):
         # Проверяем наличие заголовка google_metric_id
-        google_metric_id = request.headers.get('google_metric_id')
+        google_metric_id = request.headers.get('Google_metric_id')
         if google_metric_id is None:
             return JsonResponse(
                 {"error": "Мне кажется что ты чайник"},
