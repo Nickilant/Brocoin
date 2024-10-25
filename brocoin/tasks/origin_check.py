@@ -21,9 +21,9 @@ class OriginCheckMiddleware:
 
     def __call__(self, request):
 
-        google_metric_error = self.check_google_metric_id(request)
-        if google_metric_error:
-            return google_metric_error
+        # google_metric_error = self.check_google_metric_id(request)
+        # if google_metric_error:
+        #     return google_metric_error
 
         # Получаем заголовок Origin из запроса
         origin = request.headers.get('Origin')
