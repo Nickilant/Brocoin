@@ -1,5 +1,8 @@
 # origin_check.py
 from django.http import JsonResponse
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Допустимые домены
 ALLOWED_ORIGINS = [
@@ -21,6 +24,7 @@ class OriginCheckMiddleware:
         # google_metric_error = self.check_google_metric_id(request)
         # if google_metric_error:
         #     return google_metric_error
+        logger.debug(request.headers)
 
         # Получаем заголовок Origin из запроса
         origin = request.headers.get('Origin')
