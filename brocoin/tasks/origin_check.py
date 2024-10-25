@@ -23,9 +23,7 @@ class OriginCheckMiddleware:
 
         # google_metric_error = self.check_google_metric_id(request)
         # if google_metric_error:
-        #     return google_metric_error
-        headers = request.headers
-        logger.debug(f"Received headers: {headers}")  # Логируем заголовки
+        #     return google_metric_erro
 
         # Получаем заголовок Origin из запроса
         origin = request.headers.get('Origin')

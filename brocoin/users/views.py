@@ -7,6 +7,9 @@ import users.enums as dailyEnums
 from datetime import datetime, timedelta, date
 from django.core.paginator import Paginator
 from requests import request as req
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 @csrf_exempt
@@ -18,6 +21,8 @@ def get_user(request):
     ref_code = request.POST.get('ref_code')
     premium = request.POST.get('premium')
     ip = request.META.get('HTTP_X_FORWARDED_FOR')
+    headers = request.headers
+    logger.debug(f"Received headers: {headers}")  # Логируем заголовки
     if ip:
         # В случае с X-Forwarded-For это может быть список IP, берем первый
         ip = ip.split(',')[0]
