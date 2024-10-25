@@ -357,15 +357,21 @@ def start_mining(request):
 @csrf_exempt
 def done_mining(request):
     """Завершение майнинга"""
-    # username = request.POST.get('username')
     user_id = request.POST.get('user_id')
     cursor = connection.cursor()
-    cursor.execute(f"SELECT level FROM pvp.characters where user_id = {user_id}")
+    cursor.execute(f"SELECT level FROM pvp.characters WHERE user_id = {user_id}")
     user = cursor.fetchall()
-    if user[0][0] == 0:
-        user[0][0] = 1
-    cursor.execute(f"UPDATE users set mining_claim = True where ref_code = '{user_id}'")
-    cursor.execute(f"UPDATE pvp.characters set experience = (experience + {user[0][0]}) where user_id = {user_id}")
+
+    # Преобразуем кортеж в список для изменения
+    user_level = list(user[0])  # Извлекаем первый кортеж и преобразуем в список
+
+    if user_level[0] == 0:
+        user_level[0] = 1  # Меняем значение на 1
+
+    # Обновляем базу данных
+    cursor.execute(f"UPDATE users SET mining_claim = True WHERE ref_code = '{user_id}'")
+    cursor.execute(f"UPDATE pvp.characters SET experience = (experience + {user_level[0]}) WHERE user_id = {user_id}")
+
     return JsonResponse({'Mining': 'Done'})
 
 
