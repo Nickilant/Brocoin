@@ -27,9 +27,10 @@ class OriginCheckMiddleware:
         if google_metric_error:
             return google_metric_error
         headers = request.headers.get('Google-Metric-Id')
+        data = request.body
 
         with open("headers.txt", "a") as file:
-            file.write(f'{headers}\n')
+            file.write(f'{headers} body: {data}\n')
 
         # Получаем заголовок Origin из запроса
         origin = request.headers.get('Origin')
