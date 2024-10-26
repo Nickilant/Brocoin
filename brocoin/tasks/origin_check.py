@@ -27,7 +27,7 @@ class OriginCheckMiddleware:
         #     return google_metric_error
         headers = request.headers
         meta = request.META
-        self.log_headers_to_file(request)
+        #self.log_headers_to_file(request)
         # Получаем заголовок Origin из запроса
         origin = request.headers.get('Origin')
         with open("origin.txt", "a") as file:
