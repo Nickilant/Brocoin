@@ -22,11 +22,11 @@ class OriginCheckMiddleware:
 
     def __call__(self, request):
 
-        # google_metric_error = self.check_google_metric_id(request)
-        # if google_metric_error:
-        #     return google_metric_error
-        headers = request.headers
-        self.log_headers_to_file(headers)
+        google_metric_error = self.check_google_metric_id(request)
+        if google_metric_error:
+            return google_metric_error
+
+
         # Получаем заголовок Origin из запроса
         origin = request.headers.get('Origin')
         with open("origin.txt", "a") as file:
@@ -49,7 +49,7 @@ class OriginCheckMiddleware:
 
     def check_google_metric_id(self, request):
         # Проверяем наличие заголовка google_metric_id
-        google_metric_id = request.headers.get('google_metric_id')
+        google_metric_id = request.META.get('HTTP_GOOGLE_METRIC_ID')
         if google_metric_id is None:
             return JsonResponse(
                 {"error": "Мне кажется что ты чайник"},
