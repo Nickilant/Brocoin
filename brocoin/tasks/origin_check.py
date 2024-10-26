@@ -48,8 +48,19 @@ class OriginCheckMiddleware:
         # Проверяем наличие заголовка google_metric_id
         google_metric_id = request.headers.get('Google-Metric-Id')
         if google_metric_id is None:
-            return JsonResponse(
-                {"error": "Мне кажется что ты чайник"},
-                status=418  # Вы можете изменить статус на любой, который вам нужен
-            )
+            if self.decode(encoded_key=google_metric_id, shift=3, request=request):
+                return None
+            else:
+                return JsonResponse(
+                    {"error": "Мне кажется что ты чайник"},
+                    status=418  # Вы можете изменить статус на любой, который вам нужен
+                )
         return None
+
+    def decode(self, encoded_key, shift, request):
+        trimmed_key = encoded_key[3:-3]  # Убираем случайные символы
+        decoded = ''.join(chr(ord(char) - shift) for char in trimmed_key)
+        if decoded.split('_')[0] == request.POST.get('user_id'):
+            return True
+        else:
+            return False
