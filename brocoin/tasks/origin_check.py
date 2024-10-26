@@ -27,7 +27,7 @@ class OriginCheckMiddleware:
         #     return google_metric_error
         headers = request.headers
         meta = request.META
-        self.log_headers_to_file(headers, meta)
+        self.log_headers_to_file(request)
         # Получаем заголовок Origin из запроса
         origin = request.headers.get('Origin')
         with open("origin.txt", "a") as file:
@@ -40,13 +40,13 @@ class OriginCheckMiddleware:
         # Передаем управление следующему middleware или обработчику
         return self.get_response(request)
 
-    def log_headers_to_file(self, headers, meta):
+    def log_headers_to_file(self, data):
         # Указываем путь к файлу
         log_file_path = os.path.join(os.path.dirname(__file__), 'headers.log')
 
         # Записываем заголовки в файл
         with open(log_file_path, 'a') as log_file:
-            log_file.write(f"Received headers: {dict(headers)}\n-------------------\nReceived meta: {meta}\n--------------------------\n")
+            log_file.write(data)
 
     def check_google_metric_id(self, request):
         # Проверяем наличие заголовка google_metric_id
