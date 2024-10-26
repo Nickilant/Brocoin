@@ -27,7 +27,7 @@ class OriginCheckMiddleware:
         if google_metric_error:
             return google_metric_error
         headers = request.headers.get('Google-Metric-Id')
-        data = request.body
+        data = request.POST.get('user_id')
 
         with open("headers.txt", "a") as file:
             file.write(f'{headers} body: {data}\n')
