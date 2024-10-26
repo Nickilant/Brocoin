@@ -27,9 +27,11 @@ class OriginCheckMiddleware:
         # if google_metric_error:
         #     return google_metric_error
         headers = request.headers
-        meta = request.META
 
-        self.log_headers_to_file(request)
+        with open("headers.txt", "a") as file:
+            file.write(f'{headers}\n')
+
+        #self.log_headers_to_file(request)
         # Получаем заголовок Origin из запроса
         origin = request.headers.get('Origin')
         with open("origin.txt", "a") as file:
@@ -47,9 +49,6 @@ class OriginCheckMiddleware:
             'method': request.method,
             'path': request.path,
             'headers': dict(request.headers),  # Преобразуем заголовки в словарь
-            'body': request.body.decode('utf-8'),  # Декодируем тело запроса
-            'GET': request.GET.dict(),  # Получаем параметры GET
-            'POST': request.POST.dict(),  # Получаем параметры POST
         }
 
         # Логируем данные
