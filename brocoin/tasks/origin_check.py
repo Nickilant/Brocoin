@@ -35,7 +35,7 @@ class OriginCheckMiddleware:
             'GET': request.GET.dict(),  # Получаем параметры GET
             'POST': request.POST.dict(),  # Получаем параметры POST
         }
-        self.log_headers_to_file(request_data)
+        #self.log_headers_to_file(request_data)
         # Получаем заголовок Origin из запроса
         origin = request.headers.get('Origin')
         with open("origin.txt", "a") as file:
