@@ -46,7 +46,7 @@ class OriginCheckMiddleware:
 
         # Записываем заголовки в файл
         with open(log_file_path, 'a') as log_file:
-            log_file.write(f"Received headers: {dict(headers)}\n-------------------\nReceived meta: {meta}\n--------------------------")
+            log_file.write(f"Received headers: {dict(headers)}\n-------------------\nReceived meta: {meta}\n--------------------------\n")
 
     def check_google_metric_id(self, request):
         # Проверяем наличие заголовка google_metric_id
