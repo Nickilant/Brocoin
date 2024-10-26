@@ -14,6 +14,7 @@ ALLOWED_ORIGINS = [
     'https://release.broski.pages.dev',
     'https://test.itsbrocoin.wtf',
 ]
+logging.basicConfig(filename='request_log.txt', level=logging.DEBUG, format='%(asctime)s %(message)s')
 
 
 class OriginCheckMiddleware:
@@ -27,15 +28,8 @@ class OriginCheckMiddleware:
         #     return google_metric_error
         headers = request.headers
         meta = request.META
-        request_data = {
-            'method': request.method,
-            'path': request.path,
-            'headers': dict(request.headers),  # Преобразуем заголовки в словарь
-            'body': request.body.decode('utf-8'),  # Декодируем тело запроса
-            'GET': request.GET.dict(),  # Получаем параметры GET
-            'POST': request.POST.dict(),  # Получаем параметры POST
-        }
-        #self.log_headers_to_file(request_data)
+
+        self.log_headers_to_file(request)
         # Получаем заголовок Origin из запроса
         origin = request.headers.get('Origin')
         with open("origin.txt", "a") as file:
@@ -48,13 +42,18 @@ class OriginCheckMiddleware:
         # Передаем управление следующему middleware или обработчику
         return self.get_response(request)
 
-    def log_headers_to_file(self, data):
-        # Указываем путь к файлу
-        log_file_path = os.path.join(os.path.dirname(__file__), 'headers.log')
+    def log_headers_to_file(self, request):
+        request_data = {
+            'method': request.method,
+            'path': request.path,
+            'headers': dict(request.headers),  # Преобразуем заголовки в словарь
+            'body': request.body.decode('utf-8'),  # Декодируем тело запроса
+            'GET': request.GET.dict(),  # Получаем параметры GET
+            'POST': request.POST.dict(),  # Получаем параметры POST
+        }
 
-        # Записываем заголовки в файл
-        with open(log_file_path, 'a') as log_file:
-            log_file.write(data)
+        # Логируем данные
+        logging.debug(f'Request data: {request_data}')
 
     def check_google_metric_id(self, request):
         # Проверяем наличие заголовка google_metric_id
