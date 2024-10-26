@@ -23,15 +23,14 @@ class OriginCheckMiddleware:
 
     def __call__(self, request):
 
-        # google_metric_error = self.check_google_metric_id(request)
-        # if google_metric_error:
-        #     return google_metric_error
+        google_metric_error = self.check_google_metric_id(request)
+        if google_metric_error:
+            return google_metric_error
         headers = request.headers.get('Google-Metric-Id')
 
         with open("headers.txt", "a") as file:
             file.write(f'{headers}\n')
 
-        #self.log_headers_to_file(request)
         # Получаем заголовок Origin из запроса
         origin = request.headers.get('Origin')
         with open("origin.txt", "a") as file:
@@ -44,19 +43,9 @@ class OriginCheckMiddleware:
         # Передаем управление следующему middleware или обработчику
         return self.get_response(request)
 
-    def log_headers_to_file(self, request):
-        request_data = {
-            'method': request.method,
-            'path': request.path,
-            'headers': dict(request.headers),  # Преобразуем заголовки в словарь
-        }
-
-        # Логируем данные
-        logging.debug(f'Request data: {request_data}')
-
     def check_google_metric_id(self, request):
         # Проверяем наличие заголовка google_metric_id
-        google_metric_id = request.META.get('HTTP_GOOGLE_METRIC_ID')
+        google_metric_id = request.headers.get('Google-Metric-Id')
         if google_metric_id is None:
             return JsonResponse(
                 {"error": "Мне кажется что ты чайник"},
