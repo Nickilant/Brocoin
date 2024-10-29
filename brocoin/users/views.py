@@ -237,25 +237,30 @@ def done_daily(request):
     cursor = connection.cursor()
     # username = request.POST.get('username')
     user_id = request.POST.get('user_id')
-    cursor.execute(f"SELECT reward_streak, score, tickets FROM users where ref_code = '{user_id}'")
-    user = cursor.fetchall()
-    cursor.execute(f"UPDATE public.users set daily_claim=True where ref_code = '{user_id}' ")
-    if int(user[0][0]) == 1:
-        cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeyOne.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeyOne.TICKETS)} where ref_code = '{user_id}' ")
-    if int(user[0][0]) == 2:
-        cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeyTwo.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeyTwo.TICKETS)} where ref_code = '{user_id}' ")
-    if int(user[0][0]) == 3:
-        cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeyTree.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeyTree.TICKETS)} where ref_code = '{user_id}' ")
-    if int(user[0][0]) == 4:
-        cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeyFour.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeyFour.TICKETS)} where ref_code = '{user_id}' ")
-    if int(user[0][0]) == 5:
-        cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeyFive.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeyFive.TICKETS)} where ref_code = '{user_id}' ")
-    if int(user[0][0]) == 6:
-        cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeySix.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeySix.TICKETS)} where ref_code = '{user_id}' ")
-    if int(user[0][0]) >= 7:
-        cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeySeven.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeySeven.TICKETS)} where ref_code = '{user_id}' ")
-    print(user[0][0])
-    return JsonResponse({'daily_claim': 'done'})
+    cursor.execute(f"SELECT daily_claim FROM users where ref_code = '{user_id}'")
+    claim = cursor.fetchall()
+    if not claim:
+        cursor.execute(f"SELECT reward_streak, score, tickets FROM users where ref_code = '{user_id}'")
+        user = cursor.fetchall()
+        cursor.execute(f"UPDATE public.users set daily_claim=True where ref_code = '{user_id}' ")
+        if int(user[0][0]) == 1:
+            cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeyOne.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeyOne.TICKETS)} where ref_code = '{user_id}' ")
+        if int(user[0][0]) == 2:
+            cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeyTwo.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeyTwo.TICKETS)} where ref_code = '{user_id}' ")
+        if int(user[0][0]) == 3:
+            cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeyTree.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeyTree.TICKETS)} where ref_code = '{user_id}' ")
+        if int(user[0][0]) == 4:
+            cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeyFour.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeyFour.TICKETS)} where ref_code = '{user_id}' ")
+        if int(user[0][0]) == 5:
+            cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeyFive.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeyFive.TICKETS)} where ref_code = '{user_id}' ")
+        if int(user[0][0]) == 6:
+            cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeySix.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeySix.TICKETS)} where ref_code = '{user_id}' ")
+        if int(user[0][0]) >= 7:
+            cursor.execute(f"UPDATE public.users set score = {int(user[0][1]) + int(dailyEnums.DeySeven.POINTS)}, tickets = {int(user[0][2]) + int(dailyEnums.DeySeven.TICKETS)} where ref_code = '{user_id}' ")
+        print(user[0][0])
+        return JsonResponse({'daily_claim': 'done'})
+    else:
+        return JsonResponse({'daily_claim': 'Ish nagliy kakoy, hren tebe'})
 
 
 @csrf_exempt
@@ -288,6 +293,7 @@ def post_score(request):
     # username = request.POST.get('username')
     user_id = request.POST.get('user_id')
     user_score = request.POST.get('score')
+    user_score = 0
     cursor.execute(f"SELECT * FROM users where ref_code = '{user_id}'")
     user = cursor.fetchall()
     summ_score = int(user[0][2]) + int(user_score)
@@ -310,6 +316,7 @@ def remove_score(request):
     # username = request.POST.get('username')
     user_id = request.POST.get('user_id')
     user_score = request.POST.get('score')
+    user_score = 0
     cursor.execute(f"SELECT * FROM users where ref_code = '{user_id}'")
     user = cursor.fetchall()
     summ_score = int(user[0][2]) - int(user_score)
@@ -324,6 +331,7 @@ def post_tickets(request):
     # username = request.POST.get('username')
     user_id = request.POST.get('user_id')
     user_tickets = request.POST.get('tickets')
+    user_tickets = 0
     cursor.execute(f"SELECT * FROM users where ref_code = '{user_id}'")
     user = cursor.fetchall()
     summ_tickets = int(user[0][11]) + int(user_tickets)
@@ -338,6 +346,7 @@ def remove_tickets(request):
     # username = request.POST.get('username')
     user_id = request.POST.get('user_id')
     user_tickets = request.POST.get('tickets')
+    user_tickets = 0
     cursor.execute(f"SELECT * FROM users where ref_code = '{user_id}'")
     user = cursor.fetchall()
     summ_tickets = int(user[0][11]) - int(user_tickets)
@@ -369,8 +378,8 @@ def done_mining(request):
         user_level[0] = 1  # Меняем значение на 1
 
     # Обновляем базу данных
-    cursor.execute(f"UPDATE users SET mining_claim = True WHERE ref_code = '{user_id}'")
-    cursor.execute(f"UPDATE pvp.characters SET experience = (experience + {user_level[0]}) WHERE user_id = {user_id}")
+    #cursor.execute(f"UPDATE users SET mining_claim = True WHERE ref_code = '{user_id}'")
+    #cursor.execute(f"UPDATE pvp.characters SET experience = (experience + {user_level[0]}) WHERE user_id = {user_id}")
 
     return JsonResponse({'Mining': 'Done'})
 
@@ -404,7 +413,7 @@ def advertising_see(request):
     cursor = connection.cursor()
     cursor.execute(f"SELECT * FROM users where ref_code = '{user_id}'")
     user = cursor.fetchall()
-    cursor.execute(f"UPDATE users set tickets = {int(user[0][11])+5}, advertising_limit = {int(user[0][20])-1} where ref_code = '{user_id}'")
+    #cursor.execute(f"UPDATE users set tickets = {int(user[0][11])+5}, advertising_limit = {int(user[0][20])-1} where ref_code = '{user_id}'")
     return JsonResponse({'advertising see': 'done'})
 
 
@@ -414,6 +423,7 @@ def post_boxes(request):
     # username = request.POST.get('username')
     user_id = request.POST.get('user_id')
     box = request.POST.get('box')
+    box = 0
     cursor = connection.cursor()
     cursor.execute(f"SELECT * FROM users where ref_code = '{user_id}'")
     user = cursor.fetchall()
